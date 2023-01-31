@@ -233,26 +233,57 @@ CreateThread(function()
     end
 end)
 
+RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
+    local ped = PlayerPedId()
+    local PlayerData = RSGCore.Functions.GetPlayerData()
+
+    SetDisplay(false)
+    DoScreenFadeOut(500)
+    Wait(2000)
+    SetEntityCoords(PlayerPedId(), PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
+    SetEntityHeading(PlayerPedId(), PlayerData.position.w)
+    FreezeEntityPosition(PlayerPedId(), false)
+    TriggerServerEvent('RSGCore:Server:OnPlayerLoaded')
+    TriggerEvent('RSGCore:Client:OnPlayerLoaded')
+    FreezeEntityPosition(ped, false)
+    RenderScriptCams(false, true, 500, true, true)
+    SetCamActive(cam, false)
+    DestroyCam(cam, true)
+    SetCamActive(cam2, false)
+    DestroyCam(cam2, true)
+    SetEntityVisible(PlayerPedId(), true)
+    Wait(500)
+    DoScreenFadeIn(250)
+    TriggerServerEvent("rsg-appearance:LoadSkin")
+end)
+
 RegisterNetEvent('rsg-houses:client:setHouseConfig', function(houseConfig)
     Config.Houses = houseConfig
 end)
 
 RegisterNetEvent('rsg-spawn:client:setupSpawnUI', function(cData, new)
-    if RSG.EnableApartments then
-        RSGCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
-            if result ~= nil then
-                TriggerEvent('rsg-spawn:client:setupSpawns', cData, false, nil)
-                TriggerEvent('rsg-spawn:client:openUI', true)
-                TriggerEvent("apartments:client:SetHomeBlip", result.type)
-            else
-                TriggerEvent('rsg-spawn:client:setupSpawns', cData, true, Apartments.Locations)
-                TriggerEvent('rsg-spawn:client:openUI', true)
-            end
-        end, cData.citizenid)
-    else
+    if not new and RSG.SpawnOnLastLocationOnly then
+        TriggerEvent('rsg-spawn:client:SpawnOnLastLocationOnly')
+        return
+    end
+
+    if not RSG.EnableApartments then
         TriggerEvent('rsg-spawn:client:setupSpawns', cData, new, nil)
         TriggerEvent('rsg-spawn:client:openUI', true)
+        return
     end
+
+    RSGCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
+        if result == nil then
+            TriggerEvent('rsg-spawn:client:setupSpawns', cData, true, Apartments.Locations)
+            TriggerEvent('rsg-spawn:client:openUI', true)
+            return
+        end
+
+        TriggerEvent('rsg-spawn:client:setupSpawns', cData, false, nil)
+        TriggerEvent('rsg-spawn:client:openUI', true)
+        TriggerEvent("apartments:client:SetHomeBlip", result.type)
+    end, cData.citizenid)
 end)
 
 RegisterNetEvent('rsg-spawn:client:setupSpawns', function(cData, new, apps)
