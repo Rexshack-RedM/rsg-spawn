@@ -1,5 +1,8 @@
 RSG = {}
 
+-- Spawn only on last location for existing players
+RSG.SpawnOnLastLocationOnly = false
+
 -- Enable spawning inside houses from the spawn selector
 RSG.EnableHouses = false
 
