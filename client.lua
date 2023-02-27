@@ -142,6 +142,7 @@ RegisterNUICallback('spawnplayer', function(data)
     local ped = PlayerPedId()
     local PlayerData = RSGCore.Functions.GetPlayerData()
     local insideMeta = PlayerData.metadata['inside']
+    local isJailed = PlayerData.metadata["injail"]
     if type == "current" then
         SetDisplay(false)
         DoScreenFadeOut(500)
@@ -211,6 +212,11 @@ RegisterNUICallback('spawnplayer', function(data)
         TriggerServerEvent("rsg-clothes:LoadClothes", 2)
         newPlayer = false
     end
+    
+    if isJailed > 0 then
+        Wait(2000)
+        TriggerEvent('rsg-prison:client:prisonclothes')
+    end
 end)
 
 function SetDisplay(bool)
@@ -236,6 +242,7 @@ end)
 RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
     local ped = PlayerPedId()
     local PlayerData = RSGCore.Functions.GetPlayerData()
+    local isJailed = PlayerData.metadata["injail"]
 
     SetDisplay(false)
     DoScreenFadeOut(500)
@@ -255,6 +262,11 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
     Wait(500)
     DoScreenFadeIn(250)
     TriggerServerEvent("rsg-appearance:LoadSkin")
+
+    if isJailed > 0 then
+        Wait(2000)
+        TriggerEvent('rsg-prison:client:prisonclothes')
+    end
 end)
 
 RegisterNetEvent('rsg-houses:client:setHouseConfig', function(houseConfig)
