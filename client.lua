@@ -217,6 +217,8 @@ RegisterNUICallback('spawnplayer', function(data)
         Wait(2000)
         TriggerEvent('rsg-prison:client:prisonclothes')
     end
+
+    TriggerEvent('rsg-houses:client:BlipsOnSpawn')
 end)
 
 function SetDisplay(bool)
@@ -267,6 +269,8 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
         Wait(2000)
         TriggerEvent('rsg-prison:client:prisonclothes')
     end
+
+    TriggerEvent('rsg-houses:client:BlipsOnSpawn')
 end)
 
 RegisterNetEvent('rsg-houses:client:setHouseConfig', function(houseConfig)
