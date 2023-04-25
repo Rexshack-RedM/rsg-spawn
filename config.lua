@@ -3,6 +3,9 @@ RSG = {}
 -- Spawn only on last location for existing players
 RSG.SpawnOnLastLocationOnly = false
 
+-- Enable Auto Dual-Wield Revolvers/Pistols
+RSG.AutoDualWield = true
+
 -- Enable spawning inside houses from the spawn selector
 RSG.EnableHouses = false
 

@@ -219,6 +219,12 @@ RegisterNUICallback('spawnplayer', function(data)
     end
 
     TriggerEvent('rsg-houses:client:BlipsOnSpawn')
+
+    if RSG.AutoDualWield then
+        Wait(2000)
+
+        TriggerEvent('rsg-weapons:client:AutoDualWield')
+    end
 end)
 
 function SetDisplay(bool)
@@ -271,6 +277,12 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
     end
 
     TriggerEvent('rsg-houses:client:BlipsOnSpawn')
+
+    if RSG.AutoDualWield then
+        Wait(2000)
+
+        TriggerEvent('rsg-weapons:client:AutoDualWield')
+    end
 end)
 
 RegisterNetEvent('rsg-houses:client:setHouseConfig', function(houseConfig)
