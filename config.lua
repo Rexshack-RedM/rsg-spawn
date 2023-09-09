@@ -1,7 +1,7 @@
 RSG = {}
 
 -- Spawn only on last location for existing players
-RSG.SpawnOnLastLocationOnly = false
+RSG.SpawnOnLastLocationOnly = true
 
 -- Enable Auto Dual-Wield Revolvers/Pistols
 RSG.AutoDualWield = true
