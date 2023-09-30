@@ -1,44 +1,40 @@
---[[
-Citizen.CreateThread(function()
-	local HouseGarages = {}
-	local result = exports.ghmattimysql:executeSync('SELECT * FROM houselocations')
-	if result[1] ~= nil then
-		for k, v in pairs(result) do
-			local owned = false
-			if tonumber(v.owned) == 1 then
-				owned = true
-			end
-			local garage = v.garage ~= nil and json.decode(v.garage) or {}
-			Config.Houses[v.name] = {
-				coords = json.decode(v.coords),
-				owned = v.owned,
-				price = v.price,
-				locked = true,
-				adress = v.label,
-				tier = v.tier,
-				garage = garage,
-				decorations = {},
-			}
-			HouseGarages[v.name] = {
-				label = v.label,
-				takeVehicle = garage,
-			}
-		end
-	end
-	TriggerClientEvent("qr-garages:client:houseGarageConfig", -1, HouseGarages)
-	TriggerClientEvent("qr-houses:client:setHouseConfig", -1, Config.Houses)
-end)
+local RSGCore = exports['rsg-core']:GetCoreObject()
 
-QRCore.Functions.CreateCallback('qr-spawn:server:getOwnedHouses', function(source, cb, cid)
-	if cid ~= nil then
-		local houses = exports.ghmattimysql:executeSync('SELECT * FROM player_houses WHERE citizenid=@citizenid', {['@citizenid'] = cid})
-		if houses[1] ~= nil then
-			cb(houses)
-		else
-			cb(nil)
-		end
-	else
-		cb(nil)
-	end
-end)
-]]
+-----------------------------------------------------------------------
+-- version checker
+-----------------------------------------------------------------------
+local function versionCheckPrint(_type, log)
+    local color = _type == 'success' and '^2' or '^1'
+
+    print(('^5['..GetCurrentResourceName()..']%s %s^7'):format(color, log))
+end
+
+local function CheckVersion()
+    PerformHttpRequest('https://raw.githubusercontent.com/Rexshack-RedM/rsg-spawn/main/version.txt', function(err, text, headers)
+        local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
+
+        if not text then 
+            versionCheckPrint('error', 'Currently unable to run a version check.')
+            return 
+        end
+
+        --versionCheckPrint('success', ('Current Version: %s'):format(currentVersion))
+        --versionCheckPrint('success', ('Latest Version: %s'):format(text))
+        
+        if text == currentVersion then
+            versionCheckPrint('success', 'You are running the latest version.')
+        else
+            versionCheckPrint('error', ('You are currently running an outdated version, please update to version %s'):format(text))
+        end
+    end)
+end
+
+-----------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------
+-- start version check
+--------------------------------------------------------------------------------------------------
+CheckVersion()
