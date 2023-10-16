@@ -251,10 +251,15 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
     local ped = PlayerPedId()
     local PlayerData = RSGCore.Functions.GetPlayerData()
     local isJailed = PlayerData.metadata["injail"]
-
+    local firstname = PlayerData.charinfo.firstname
+    local lastname = PlayerData.charinfo.lastname
+    local citizenid = PlayerData.citizenid
+    
+    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, 'Citizen ID: '..citizenid, 'Loading Please Wait...')
+    Wait(10000)
+    
     SetDisplay(false)
-    DoScreenFadeOut(500)
-    Wait(2000)
+    DoScreenFadeOut(1000)
     SetEntityCoords(PlayerPedId(), PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     SetEntityHeading(PlayerPedId(), PlayerData.position.w)
     FreezeEntityPosition(PlayerPedId(), false)
@@ -267,10 +272,8 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
     SetCamActive(cam2, false)
     DestroyCam(cam2, true)
     SetEntityVisible(PlayerPedId(), true)
-    Wait(500)
-    DoScreenFadeIn(250)
     TriggerServerEvent("rsg-appearance:LoadSkin")
-
+    
     if isJailed > 0 then
         Wait(2000)
         TriggerEvent('rsg-prison:client:prisonclothes')
@@ -280,9 +283,11 @@ RegisterNetEvent('rsg-spawn:client:SpawnOnLastLocationOnly', function()
 
     if RSG.AutoDualWield then
         Wait(2000)
-
         TriggerEvent('rsg-weapons:client:AutoDualWield')
     end
+    
+    ShutdownLoadingScreen()
+    DoScreenFadeIn(1000)
 end)
 
 RegisterNetEvent('rsg-houses:client:setHouseConfig', function(houseConfig)
