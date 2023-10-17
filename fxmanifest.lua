@@ -1,26 +1,27 @@
 fx_version 'cerulean'
-game 'rdr3'
+lua54 'yes'
 rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
+game 'rdr3'
 
 description 'rsg-spawn'
-version '1.0.1'
+version '1.0.2'
 
 shared_scripts {
-	'config.lua'
+    '@ox_lib/init.lua',
+    '@rsg-core/shared/locale.lua',
+    'locales/en.lua', -- preferred language
+    'config.lua',
 }
 
-client_script 'client.lua'
-server_script 'server.lua'
+client_scripts {
+    'client/client.lua'
+}
 
-ui_page 'html/index.html'
-
-files {
-	'html/index.html',
-	'html/style.css',
-	'html/script.js',
-	'html/reset.css'
+server_scripts {
+    'server/server.lua'
 }
 
 dependencies {
-	'rsg-core'
+    'rsg-core',
+    'ox_lib',
 }
