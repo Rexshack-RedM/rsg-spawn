@@ -56,7 +56,7 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     Wait(10000)
     
     DoScreenFadeOut(1000)
-    SetEntityCoords(ped, Config.SpawnLocation.coords.x, Config.SpawnLocation.coords.y, Config.SpawnLocation.coords.z)
+    SetEntityCoordsNoOffset(ped, Config.SpawnLocation.coords, true, true, true)
     SetEntityHeading(ped, Config.SpawnLocation.coords.w)
     FreezeEntityPosition(ped, false)
     FreezeEntityPosition(ped, false)
