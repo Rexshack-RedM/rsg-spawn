@@ -25,7 +25,7 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     FreezeEntityPosition(ped, false)
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
-    TriggerServerEvent("rsg-appearance:LoadSkin")
+    ExecuteCommand('loadskin')
     
     if isJailed > 0 then
         Wait(2000)
