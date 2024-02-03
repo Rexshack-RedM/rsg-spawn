@@ -4,4 +4,4 @@ Config = {}
 Config.AutoDualWield = true
 
 -- spawn location
-Config.SpawnLocation = { coords = vector4(-327.765, 807.769, 117.894, 254.593) } -- valentine
+Config.SpawnLocation = { coords = vector4(-169.47, 629.38, 114.03, 236.72) } -- valentine station
