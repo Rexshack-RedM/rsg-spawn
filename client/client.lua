@@ -20,12 +20,26 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     Wait(10000)
 
     DoScreenFadeOut(1000)
+
+    -- set player health / stamina / regeneration
+    local currentHealth = PlayerData.metadata["health"]
+    local maxStamina = Citizen.InvokeNative(0xCB42AFE2B613EE55, PlayerPedId(), Citizen.ResultAsFloat())
+    local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
+    SetEntityHealth(PlayerPedId(), currentHealth )
+    Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
+    if Config.HealthRegeneration then
+        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), Config.RegenerationRate)
+    else
+        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), 0.0)
+    end
+
+    ExecuteCommand('loadskin')
+
     SetEntityCoords(ped, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     SetEntityHeading(ped, PlayerData.position.w)
     FreezeEntityPosition(ped, false)
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
-    ExecuteCommand('loadskin')
     
     if isJailed > 0 then
         Wait(2000)
@@ -56,6 +70,21 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     Wait(10000)
     
     DoScreenFadeOut(1000)
+
+    -- set player health / stamina / regeneration
+    local currentHealth = PlayerData.metadata["health"]
+    local maxStamina = Citizen.InvokeNative(0xCB42AFE2B613EE55, PlayerPedId(), Citizen.ResultAsFloat())
+    local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
+    SetEntityHealth(PlayerPedId(), currentHealth )
+    Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
+    if Config.HealthRegeneration then
+        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), Config.RegenerationRate)
+    else
+        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), 0.0)
+    end
+
+    ExecuteCommand('loadskin')
+
     SetEntityCoordsNoOffset(ped, Config.SpawnLocation.coords, true, true, true)
     SetEntityHeading(ped, Config.SpawnLocation.coords.w)
     FreezeEntityPosition(ped, false)
@@ -65,5 +94,4 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     DoScreenFadeIn(1000)
     TriggerServerEvent('RSGCore:Server:OnPlayerLoaded')
     TriggerEvent('RSGCore:Client:OnPlayerLoaded')
-    ExecuteCommand('loadskin')
 end)
