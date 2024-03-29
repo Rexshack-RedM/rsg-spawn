@@ -27,11 +27,6 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
     SetEntityHealth(PlayerPedId(), currentHealth )
     Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
-    if Config.HealthRegeneration then
-        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), Config.RegenerationRate)
-    else
-        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), 0.0)
-    end
 
     ExecuteCommand('loadskin')
 
@@ -77,11 +72,6 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
     SetEntityHealth(PlayerPedId(), currentHealth )
     Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
-    if Config.HealthRegeneration then
-        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), Config.RegenerationRate)
-    else
-        Citizen.InvokeNative(0x8899C244EBCF70DE, PlayerId(), 0.0)
-    end
 
     ExecuteCommand('loadskin')
 
