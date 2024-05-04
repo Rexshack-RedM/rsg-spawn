@@ -3,6 +3,7 @@ local RSGCore = exports['rsg-core']:GetCoreObject()
 RegisterNetEvent('rsg-spawn:client:setupSpawnUI', function(cData, new)
     if new == false then
         TriggerEvent('rsg-spawn:client:existingplayer')
+        exports.weathersync:setSyncEnabled(true)
     else
         TriggerEvent('rsg-spawn:client:newplayer')
     end
