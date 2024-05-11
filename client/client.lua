@@ -29,7 +29,7 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     SetEntityHealth(PlayerPedId(), currentHealth )
     Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
 
-    ExecuteCommand('loadskin')
+    TriggerEvent('rsg-appearance:client:loadskin')
 
     SetEntityCoords(ped, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     SetEntityHeading(ped, PlayerData.position.w)
