@@ -22,18 +22,12 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
 
     DoScreenFadeOut(1000)
 
-    -- set player health / stamina / regeneration
+    -- set player health
     local currentHealth = PlayerData.metadata["health"]
-    local maxStamina = Citizen.InvokeNative(0xCB42AFE2B613EE55, PlayerPedId(), Citizen.ResultAsFloat())
-    local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
     SetEntityHealth(PlayerPedId(), currentHealth )
-    Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
-
-    TriggerEvent('rsg-appearance:client:loadskin')
-
+    ExecuteCommand('loadskin')
     SetEntityCoords(ped, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     SetEntityHeading(ped, PlayerData.position.w)
-    FreezeEntityPosition(ped, false)
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
     
@@ -41,8 +35,6 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
         Wait(2000)
         TriggerEvent('rsg-prison:client:prisonclothes')
     end
-
-    TriggerEvent('rsg-houses:client:BlipsOnSpawn')
 
     if Config.AutoDualWield then
         Wait(2000)
