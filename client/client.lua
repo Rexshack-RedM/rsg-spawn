@@ -21,11 +21,11 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     Wait(10000)
 
     DoScreenFadeOut(1000)
+    ExecuteCommand('loadskin')
 
     -- set player health
     local currentHealth = PlayerData.metadata["health"]
     SetEntityHealth(PlayerPedId(), currentHealth )
-    ExecuteCommand('loadskin')
     SetEntityCoords(ped, PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     SetEntityHeading(ped, PlayerData.position.w)
     FreezeEntityPosition(ped, false)
