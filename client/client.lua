@@ -53,27 +53,21 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     local firstname = PlayerData.charinfo.firstname
     local lastname = PlayerData.charinfo.lastname
     local citizenid = PlayerData.citizenid
-    
     Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, 'Citizen ID: '..citizenid, 'Loading Please Wait...')
     Wait(10000)
-    
     DoScreenFadeOut(1000)
-
-    -- set player health / stamina / regeneration
-    local currentHealth = PlayerData.metadata["health"]
-    local maxStamina = Citizen.InvokeNative(0xCB42AFE2B613EE55, PlayerPedId(), Citizen.ResultAsFloat())
-    local currentStamina = Citizen.InvokeNative(0x775A1CA7893AA8B5, PlayerPedId(), Citizen.ResultAsFloat()) / maxStamina * 100
-    SetEntityHealth(PlayerPedId(), currentHealth )
-    Citizen.InvokeNative(0xC3D4B754C0E86B9E, PlayerPedId(), currentStamina)
-
     ExecuteCommand('loadskin')
-
     SetEntityCoordsNoOffset(ped, Config.SpawnLocation.coords, true, true, true)
     SetEntityHeading(ped, Config.SpawnLocation.coords.w)
     FreezeEntityPosition(ped, false)
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
+    if Config.AutoDualWield then
+        Wait(2000)
+        TriggerEvent('rsg-weapons:client:AutoDualWield')
+    end
     ShutdownLoadingScreen()
+    ExecuteCommand('revive')
     DoScreenFadeIn(1000)
     TriggerServerEvent('RSGCore:Server:OnPlayerLoaded')
     TriggerEvent('RSGCore:Client:OnPlayerLoaded')
