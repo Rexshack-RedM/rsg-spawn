@@ -1,4 +1,5 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
+lib.locale()
 
 RegisterNetEvent('rsg-spawn:client:setupSpawnUI', function(cData, new)
     if new == false then
@@ -17,7 +18,7 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     local lastname = PlayerData.charinfo.lastname
     local citizenid = PlayerData.citizenid
 
-    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, 'Citizen ID: '..citizenid, 'Loading Please Wait...')
+    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2'))
     Wait(10000)
 
     DoScreenFadeOut(1000)
@@ -53,7 +54,7 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     local firstname = PlayerData.charinfo.firstname
     local lastname = PlayerData.charinfo.lastname
     local citizenid = PlayerData.citizenid
-    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, 'Citizen ID: '..citizenid, 'Loading Please Wait...')
+    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2'))
     Wait(10000)
     DoScreenFadeOut(1000)
     ExecuteCommand('loadskin')
