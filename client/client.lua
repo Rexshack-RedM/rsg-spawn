@@ -17,8 +17,9 @@ RegisterNetEvent('rsg-spawn:client:existingplayer', function()
     local firstname = PlayerData.charinfo.firstname
     local lastname = PlayerData.charinfo.lastname
     local citizenid = PlayerData.citizenid
-
-    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2'))
+    local randomIndex = math.random(1, #Config.RandomTips)
+    local randomTip = Config.RandomTips[randomIndex]
+    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2')..' '..randomTip)
     Wait(10000)
 
     DoScreenFadeOut(1000)
@@ -54,7 +55,9 @@ RegisterNetEvent('rsg-spawn:client:newplayer', function()
     local firstname = PlayerData.charinfo.firstname
     local lastname = PlayerData.charinfo.lastname
     local citizenid = PlayerData.citizenid
-    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2'))
+    local randomIndex = math.random(1, #Config.RandomTips)
+    local randomTip = Config.RandomTips[randomIndex]
+    Citizen.InvokeNative(0x1E5B70E53DB661E5, 1122662550, 347053089, 0, firstname..' '..lastname, locale('cl_lang_1')..citizenid, locale('cl_lang_2')..' '..randomTip)
     Wait(10000)
     DoScreenFadeOut(1000)
     ExecuteCommand('loadskin')
