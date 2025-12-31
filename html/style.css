@@ -1,0 +1,249 @@
+/* RDR2 Main Font */
+@font-face {
+    font-family: 'ChineseRocks';
+    src: url('fonts/crock.ttf') format('truetype'); 
+}
+
+:root {
+    /* Official RDR2 Approximate Colors */
+    --rdr-red: #cc0000;
+    --rdr-dark-red: #580000;
+    --rdr-white: #e8e8e8;
+    --rdr-black: #000000;
+    --rdr-grey: #2e2e2e;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'ChineseRocks', 'Courier New', serif;
+    user-select: none;
+    background-color: transparent;
+}
+
+#app {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none; /* Starts hidden */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+}
+
+/* Background Layer */
+#bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.8s ease-in-out;
+    opacity: 0.9;
+    z-index: 0;
+    filter: sepia(0.2) contrast(1.1);
+}
+
+/* Vignette Effect */
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 90%, rgba(0,0,0,1) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Dirty Paper Texture Overlay */
+.texture-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    z-index: 2;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Main UI Container */
+.ui-container {
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6vh;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+
+/* --- HEADER --- */
+.header-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4vh;
+}
+
+.city-name {
+    font-family: 'ChineseRocks';
+    font-size: 8rem;
+    color: var(--rdr-white);
+    text-transform: uppercase;
+    text-shadow: 
+        3px 3px 0px #000, 
+        0 0 30px rgba(0,0,0,0.9);
+    margin: 0;
+    letter-spacing: 5px;
+    line-height: 0.9;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.city-desc {
+    font-family: 'Courier New', serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #dcdcdc;
+    text-shadow: 1px 1px 2px black;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.7), transparent);
+    padding: 5px 40px;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* --- CENTER CONTROLS --- */
+.center-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 5vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    box-sizing: border-box;
+}
+
+/* Navigation Arrows */
+.nav-btn {
+    background: rgba(0,0,0,0.4);
+    border: 2px solid rgba(255,255,255,0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ChineseRocks';
+    padding-bottom: 5px;
+}
+
+.nav-btn:hover {
+    background: var(--rdr-red);
+    border-color: var(--rdr-white);
+    color: var(--rdr-white);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(204, 0, 0, 0.6);
+}
+
+/* Spawn Button Area */
+.spawn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.spawn-btn {
+    font-family: 'ChineseRocks', serif;
+    font-size: 2.5rem;
+    color: var(--rdr-white);
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--rdr-white);
+    padding: 15px 60px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    position: relative;
+    min-width: 300px;
+    text-align: center;
+}
+
+.spawn-btn:hover {
+    background: var(--rdr-red);
+    color: white;
+    border-color: #ff3333;
+    box-shadow: 0 0 30px rgba(204, 0, 0, 0.5);
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.spawn-btn:active {
+    transform: scale(0.98);
+}
+
+/* Red Decoration Line */
+.decoration-line {
+    width: 100%;
+    height: 4px;
+    background: var(--rdr-red);
+    margin-bottom: 4px;
+    box-shadow: 0 0 10px var(--rdr-red);
+}
+
+/* --- HUD FOOTER --- */
+.hud-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.hud-hints {
+    display: flex;
+    gap: 30px;
+    font-family: 'ChineseRocks', sans-serif;
+    font-size: 1.5rem;
+    color: var(--rdr-white);
+}
+
+.hint-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.key-prompt {
+    background: rgba(255,255,255,0.9);
+    color: black;
+    font-family: 'Courier New', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 2px 8px;
+    border-radius: 2px;
+    min-width: 20px;
+    text-align: center;
+    box-shadow: 1px 1px 3px black;
+}
