@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedM Spawn Selector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app">
+        <!-- Dynamic Background -->
+        <div id="bg-layer"></div>
+        
+        <!-- Texture Overlay -->
+        <div class="texture-overlay"></div>
+
+        <!-- Vignette Effect -->
+        <div class="vignette"></div>
+
+        <!-- Main Content -->
+        <div class="ui-container">
+            
+            <!-- RDR2 Header -->
+            <div class="header-container">
+                <h1 id="city-name" class="city-name">VALENTINE</h1>
+                <div class="decoration-line" style="width: 60%; margin-top: 5px; opacity: 0.8;"></div>
+                <p id="city-desc" class="city-desc">The Heartlands</p>
+            </div>
+
+            <!-- Center Controls -->
+            <div class="center-controls">
+                
+                <!-- Left Arrow -->
+                <button class="nav-btn" onclick="prevLocation()">
+                    &lt;
+                </button>
+
+                <!-- Center Button -->
+                <div class="spawn-container">
+                    <button class="spawn-btn" onclick="selectLocation()">
+                        WAKE UP HERE
+                    </button>
+                </div>
+
+                <!-- Right Arrow -->
+                <button class="nav-btn" onclick="nextLocation()">
+                    &gt;
+                </button>
+            </div>
+
+            <!-- HUD Footer -->
+            <div class="hud-footer">
+                <div class="hud-hints">
+                    <div class="hint-item">
+                        <span class="key-prompt">&larr;&rarr;</span>
+                        <span>NAVIGATE</span>
+                    </div>
+                    <div class="hint-item">
+                        <span class="key-prompt">ENTER</span>
+                        <span>SELECT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

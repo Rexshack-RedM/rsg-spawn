@@ -24,8 +24,16 @@ dependencies {
     'ox_lib',
 }
 
+ui_page 'html/index.html'
+
+
 files {
-  'locales/*.json'
+    'locales/*.json',
+    'html/index.html',
+    'html/script.js',
+    'html/style.css',
+    'html/fonts/crock.ttf', 
+    'html/img/*.jpg'            
 }
 
 lua54 'yes'
